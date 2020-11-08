@@ -5,6 +5,30 @@
     <title>List of Vets</title>
 </head>
 <body>
-    <h1 th:text="'List of Vets'">List of vets...</h1>
+<!--/*@thymesVar id="vet" type="com.example.springpetclinic.model.Vet"*/-->
+
+<h1>List of vets...</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vet : ${vets}">
+        <td th:text="${vet.id}"></td>
+        <td th:text="${vet.firstName}"></td>
+        <td th:text="${vet.lastName}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<ul>
+    <li th:each="owner : ${owners}">
+        <p th:text="${owner.getFirstName()} + ' ' + ${owner.getLastName()}"></p>
+    </li>
+</ul>
 </body>
 </html>

@@ -5,6 +5,28 @@
     <title>List of Vets</title>
 </head>
 <body>
-    <h1 th:text="'List of Owners'">List of owners...</h1>
+<h1 th:text="'List of Owners'">List of owners...</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="owner : ${owners}">
+        <td th:text="${owner.id}"></td>
+        <td th:text="${owner.firstName}"></td>
+        <td th:text="${owner.lastName}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<ul>
+    <li th:each="owner : ${owners}">
+        <p th:text="${owner.getFirstName()} + ' ' + ${owner.getLastName()}"></p>
+    </li>
+</ul>
 </body>
 </html>

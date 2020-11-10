@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'vets')}">
 <head>
     <meta charset="UTF-8">
     <title>List of Vets</title>
@@ -7,8 +7,8 @@
 <body>
 <!--/*@thymesVar id="vet" type="com.example.springpetclinic.model.Vet"*/-->
 
-<h1>List of vets...</h1>
-<table>
+<h2>Vets</h2>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>ID</th>

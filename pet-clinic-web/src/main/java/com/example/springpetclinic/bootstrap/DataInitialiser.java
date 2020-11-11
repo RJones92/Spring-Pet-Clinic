@@ -1,11 +1,9 @@
 package com.example.springpetclinic.bootstrap;
 
-import com.example.springpetclinic.model.Owner;
-import com.example.springpetclinic.model.Pet;
-import com.example.springpetclinic.model.PetType;
-import com.example.springpetclinic.model.Vet;
+import com.example.springpetclinic.model.*;
 import com.example.springpetclinic.services.OwnerService;
 import com.example.springpetclinic.services.PetTypeService;
+import com.example.springpetclinic.services.SpecialityService;
 import com.example.springpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,16 +16,24 @@ public class DataInitialiser implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
 
-    public DataInitialiser(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataInitialiser(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
+        int countPetTypesStored = petTypeService.findAll().size();
+        if (countPetTypesStored == 0) loadData();
+
+    }
+
+    private void loadData() {
         //------- Pet Types --------
         PetType dog = new PetType();
         dog.setName("Dog");
@@ -52,6 +58,7 @@ public class DataInitialiser implements CommandLineRunner {
         rhysPet.setName("Milo");
 
         owner1.getPets().add(rhysPet);
+
         ownerService.save(owner1);
 
         Owner owner2 = new Owner();
@@ -68,24 +75,40 @@ public class DataInitialiser implements CommandLineRunner {
         rickysDog.setName("Jean Girard");
 
         owner2.getPets().add(rickysDog);
+
         ownerService.save(owner2);
 
         System.out.println("Loaded Owners...");
+
+        //------- Specialities --------
+        Speciality dentistry = new Speciality();
+        dentistry.setDescription("Dentistry");
+        Speciality savedDentistry = specialityService.save(dentistry);
+
+        Speciality surgery = new Speciality();
+        surgery.setDescription("Surgery");
+        Speciality savedSurgery = specialityService.save(surgery);
+
+        Speciality cardiologist = new Speciality();
+        cardiologist.setDescription("Cardiologist");
+        Speciality savedCardiologist = specialityService.save(cardiologist);
 
         //------- Vets --------
         Vet vet1 = new Vet();
         vet1.setFirstName("Jack");
         vet1.setLastName("Black");
+        vet1.getSpecialities().add(savedDentistry);
 
         vetService.save(vet1);
 
         Vet vet2 = new Vet();
         vet2.setFirstName("Helena");
         vet2.setLastName("Bonham-Carter");
+        vet2.getSpecialities().add(savedSurgery);
+        vet2.getSpecialities().add(savedCardiologist);
 
         vetService.save(vet2);
 
         System.out.println("Loaded Vets...");
-
     }
 }

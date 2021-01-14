@@ -5,6 +5,7 @@ import com.example.springpetclinic.services.OwnerService;
 import com.example.springpetclinic.services.PetTypeService;
 import com.example.springpetclinic.services.SpecialityService;
 import com.example.springpetclinic.services.VetService;
+import com.example.springpetclinic.services.VisitService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +18,15 @@ public class DataInitialiser implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
-    public DataInitialiser(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public DataInitialiser(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
+                           SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -79,6 +83,15 @@ public class DataInitialiser implements CommandLineRunner {
         ownerService.save(owner2);
 
         System.out.println("Loaded Owners...");
+
+        //------- Visits --------
+        Visit dogVisit = new Visit();
+        dogVisit.setPet(rickysDog);
+        dogVisit.setDate(LocalDate.of(2021, 9, 2));
+        dogVisit.setDescription("Sneezy dog");
+
+        visitService.save(dogVisit);
+
 
         //------- Specialities --------
         Speciality dentistry = new Speciality();

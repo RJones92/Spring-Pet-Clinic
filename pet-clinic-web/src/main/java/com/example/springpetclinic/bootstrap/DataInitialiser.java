@@ -42,7 +42,7 @@ public class DataInitialiser implements CommandLineRunner {
         PetType dog = new PetType();
         dog.setName("Dog");
         PetType savedDogPetType = petTypeService.save(dog);
-
+        
         PetType cat = new PetType();
         dog.setName("Cat");
         PetType savedCatPetType = petTypeService.save(cat);

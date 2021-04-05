@@ -44,7 +44,7 @@ public class DataInitialiser implements CommandLineRunner {
         PetType savedDogPetType = petTypeService.save(dog);
         
         PetType cat = new PetType();
-        dog.setName("Cat");
+        cat.setName("Cat");
         PetType savedCatPetType = petTypeService.save(cat);
 
         //------- Owners and their Pets --------
@@ -58,7 +58,7 @@ public class DataInitialiser implements CommandLineRunner {
         Pet rhysPet = new Pet();
         rhysPet.setPetType(savedCatPetType);
         rhysPet.setOwner(owner1);
-        rhysPet.setBirthdate(LocalDate.of(2018, 8, 26));
+        rhysPet.setBirthDate(LocalDate.of(2018, 8, 26));
         rhysPet.setName("Milo");
 
         owner1.getPets().add(rhysPet);
@@ -75,7 +75,7 @@ public class DataInitialiser implements CommandLineRunner {
         Pet rickysDog = new Pet();
         rickysDog.setPetType(savedDogPetType);
         rickysDog.setOwner(owner2);
-        rickysDog.setBirthdate(LocalDate.of(2020, 1, 1));
+        rickysDog.setBirthDate(LocalDate.of(2020, 1, 1));
         rickysDog.setName("Jean Girard");
 
         owner2.getPets().add(rickysDog);
